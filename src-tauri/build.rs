@@ -8,18 +8,22 @@ fn main() -> io::Result<()> {
     }
     let parent = this_dir.parent().expect("no parent to src-tauri");
 
-    let package_status = process::Command::new("yarn")
+    let yarn_path =
+        which::which("yarn").expect("yarn not found and is required for this application");
+    let package_status = process::Command::new(yarn_path)
         .args(vec!["package"])
         .current_dir(parent)
         .status()?;
     if !package_status.success() {
         panic!("Failed to package binaries");
     }
+
     let target_triple = std::env::var("TARGET").expect("TARGET env var not set");
     // append target triple to each filename in the binaries dir
     for entry in std::fs::read_dir(binaries_dir)? {
         let entry = entry?;
         let path = entry.path();
+        // could manually split, this is easier
         let extension = path
             .extension()
             .map(|e| format!(".{}", e.to_string_lossy()))

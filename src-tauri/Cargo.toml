@@ -1,5 +1,5 @@
 [package]
-name = "ytda-gui2"
+name = "ytda-gui"
 version = "0.0.0"
 description = "A Tauri App"
 authors = ["you"]
@@ -13,6 +13,7 @@ exclude = ["/binaries"]
 
 [build-dependencies]
 tauri-build = {version = "1.2", features = [] }
+which = "4.3.0"
 
 [dependencies]
 serde_json = "1.0"
