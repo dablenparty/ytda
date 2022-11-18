@@ -1,34 +1,33 @@
 {
-  "name": "ytda-gui",
-  "productName": "ytda-gui",
-  "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": "src/index.js",
+  "name": "ytda-gui2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "bin": "src/main.jsx",
+  "pkg": {
+    "assets": [
+      "src/binaries/**/*"
+    ]
+  },
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "package": "pkg package.json --output src-tauri/binaries/ytda"
   },
-  "keywords": [],
-  "author": {
-    "name": "dablenparty",
-    "email": "hdavenport8902@gmail.com"
-  },
-  "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "ffmpeg-static": "^5.1.0",
-    "fluent-ffmpeg": "^2.1.2",
-    "ytdl-core": "^4.11.2"
+    "@tauri-apps/api": "^1.1.0",
+    "preact": "^10.10.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.3",
-    "@electron-forge/maker-deb": "^6.0.3",
-    "@electron-forge/maker-rpm": "^6.0.3",
-    "@electron-forge/maker-squirrel": "^6.0.3",
-    "@electron-forge/maker-zip": "^6.0.3",
-    "electron": "21.3.0"
+    "@babel/core": "^7.12.10",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@preact/preset-vite": "^2.3.0",
+    "@tauri-apps/cli": "^1.1.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "pkg": "^5.8.0",
+    "vite": "^3.0.7",
+    "ytdl-core": "^4.11.2"
   }
 }
