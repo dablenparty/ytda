@@ -1,23 +1,35 @@
-import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
-import ffmpeg from "fluent-ffmpeg";
-import ytdl from "ytdl-core";
+const { program } = require("commander");
+const { default: ffmpegPath } = require("ffmpeg-static");
+const { join, resolve } = require("path");
+const { homedir } = require("os");
+const ffmpeg = require("fluent-ffmpeg");
+const ytdl = require("ytdl-core");
+
+console.log(resolve("."));
+
+if (!ffmpegPath) {
+  throw new Error("ffmpeg-static not found");
+}
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-export async function downloadFromInfo(videoInfo) {
+// TODO: make command line args for the following:
+// * output dir
+// * track name
+// * track artist
+const DOWNLOADS = join(homedir(), "Downloads");
+
+program.argument("<url>", "YouTube URL to download").action(async (url) => {
+  const videoInfo = await ytdl.getInfo(url);
   const fileSafeTitle = videoInfo.videoDetails.title.replace(
     /[/\\?%*:|"<>]/g,
     "-"
   );
-  const fileSafeAuthor = videoInfo.videoDetails.author.replace(
+  const fileSafeAuthor = videoInfo.videoDetails.author.name.replace(
     /[/\\?%*:|"<>]/g,
     "-"
   );
-  const downloadsFolder = app.getPath("downloads");
-  const videoPath = join(
-    downloadsFolder,
-    `${fileSafeTitle} - ${fileSafeAuthor}.mp3`
-  );
+  const videoPath = join(DOWNLOADS, `${fileSafeTitle} - ${fileSafeAuthor}.mp3`);
   let done = false;
   let error = null;
   const videoStream = ytdl.downloadFromInfo(videoInfo, {
@@ -42,4 +54,6 @@ export async function downloadFromInfo(videoInfo) {
   if (error) {
     throw error;
   }
-}
+});
+
+program.parse();

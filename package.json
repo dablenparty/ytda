@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "bin": "src/main.jsx",
+  "bin": "src/binaries/ytda.js",
   "pkg": {
     "assets": [
       "src/binaries/**/*"
@@ -22,9 +22,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@preact/preset-vite": "^2.3.0",
     "@tauri-apps/cli": "^1.1.0",
+    "commander": "^9.4.1",
+    "ffmpeg-static": "^5.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "pkg": "^5.8.0",
     "vite": "^3.0.7",
